@@ -32,7 +32,7 @@ jobs:
           persist-credentials: false
 
       - name: "Run analysis"
-        uses: ossf/scorecard-action@15c10fcf1cf912bd22260bfec67569a359ab87da # v2.1.1
+        uses: ossf/scorecard-action@c607965eb9b81903ebe55e07a3ea50275a5a7d0b # v2.1.1
         with:
           internal_publish_base_url: https://api-staging.securityscorecards.dev/
           results_file: results.json

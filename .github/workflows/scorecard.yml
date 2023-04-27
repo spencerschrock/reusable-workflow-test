@@ -9,30 +9,22 @@ on:
   push:
     branches: [ main ]
 
-# Declare default permissions as read only.
-permissions: read-all
+permissions: {}
 
 jobs:
   analysis:
     name: Scorecards analysis
     runs-on: ubuntu-latest
     permissions:
-      # Needed to upload the results to code-scanning dashboard.
-      security-events: write
       # Needed to publish results and get a badge (see publish_results below).
       id-token: write
-      # Uncomment the permissions below if installing in a private repository.
-      # contents: read
-      # actions: read
+      contents: read
+      actions: read
 
     steps:
-      - name: "Checkout code"
-        uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3.2.0
-        with:
-          persist-credentials: false
 
       - name: "Run analysis"
-        uses: ossf/scorecard-action@c607965eb9b81903ebe55e07a3ea50275a5a7d0b # v2.1.1
+        uses: ossf/scorecard-action@c6e1a757c30aa1c58e1876868bff8f4411bc6505 # v2.1.1
         with:
           internal_publish_base_url: https://api-staging.securityscorecards.dev/
           results_file: results.json
@@ -51,12 +43,3 @@ jobs:
           #   - `publish_results` will always be set to `false`, regardless
           #     of the value entered here.
           publish_results: true
-
-      # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
-      # format to the repository Actions tab.
-      - name: "Upload artifact"
-        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb # v3.1.1
-        with:
-          name: JSON file
-          path: results.json
-          retention-days: 5
